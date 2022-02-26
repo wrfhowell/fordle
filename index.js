@@ -108,7 +108,8 @@ function buildKeyboardRow(letters, isLastRow) {
     if (isLastRow) {
         let button = document.createElement('button')
         button.className = 'keyboardButton'
-        button.textContent = 'Enter'
+        button.textContent = 'enter'
+        button.style.fontSize = '10px'
         button.onclick = () => {
             handleKeyPress('enter')
         };
@@ -121,12 +122,14 @@ function buildKeyboardRow(letters, isLastRow) {
         button.onclick = () => {
             handleKeyPress(letter)
         };
+        keyboardButtons.set(letter, button)
         row.appendChild(button)
     }
     if (isLastRow) {
         let button = document.createElement('button')
         button.className = 'keyboardButton'
-        button.textContent = 'Backspace'
+        button.textContent = 'del'
+        button.style.fontSize = '10px'
         button.onclick = () => {
             handleKeyPress('backspace')
         };
@@ -138,7 +141,14 @@ function buildKeyboardRow(letters, isLastRow) {
     
 }
 
+
 function handleKeyPress(key) {
+    if (attempts[attempts.length - 1] === solution) {
+        return
+    }
+    if (attempts.length === 6) {
+        return
+    }
     let letter = key.toLowerCase()
     if (letter === 'enter' ) {
         if(currentAttempt.length < 4) {
@@ -148,8 +158,13 @@ function handleKeyPress(key) {
             alert('Not a valid word')
             return
         }
+        if (attempts.length === 5 && currentAttempt !== solution) {
+            alert(solution)
+        }
         attempts.push(currentAttempt)
         currentAttempt = ''
+        updateKeyboard()
+
     } 
     //delete letter on backspace
     else if (letter === 'backspace') {
@@ -162,6 +177,32 @@ function handleKeyPress(key) {
         }
     }
     updateGrid()
+}
+
+function getBetterColor(a,b) {
+    if (a === GREEN || b === GREEN) {
+        return GREEN
+    }
+    if (a === YELLOW || b === YELLOW) {
+        return YELLOW
+    }
+    return '#303030'
+}
+
+let keyboardButtons = new Map()
+function updateKeyboard() {
+    let bestColors = new Map()
+    for (let attempt of attempts) {
+        for (let i = 0; i < attempt.length; i++) {
+            let color = getBgColor(attempt, i)
+            let bestColor = bestColors.get(color)
+            bestColors.set(attempt[i], getBetterColor(color, bestColor))
+        }
+    }
+
+    for (let [key, button] of keyboardButtons) {
+         button.style.backgroundColor = bestColors.get(key)
+    }
 }
 
 buildGrid()

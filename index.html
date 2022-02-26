@@ -18,6 +18,7 @@
     body, html, #screen {
         height: 100vh;
         width: 100%;
+        overflow: hidden;
     }
     #screen {
         display: flex;
@@ -29,14 +30,15 @@
     }
     .keyboardButton {
         text-transform: uppercase;
-        padding: 15px;
+        padding-left: 3.1%;
+        padding-right: 3.1%;
         border-radius: 5px;
         border: none;
-        height: 60px;
-        margin: 1px;
+        height: 7vh;
+        margin: 0.1vh;
         color: 	#696969;
         opacity: 0.75;
-        font-size: 16px; 
+        font-size: 2vh; 
         cursor: pointer;
     }
     #keyboard {
@@ -44,11 +46,13 @@
         padding: 20px;
         position: absolute;
         bottom: 0  ;
-        width: 100%;
+        left:0;
+        right: 0;
+        vertical-align: middle;
      }
     .cell {
-        width: 60px;
-        height: 60px;
+        width: 7.5vh;
+        height: 7.5vh;
         line-height: 60px;
         border: 0.045em solid white;
         border-radius: 10px;
@@ -62,7 +66,7 @@
     }
     #grid {
         flex: 1 1 auto;
-        
+        vertical-align: middle;
     }
 </style>
 <script src="index.js"></script>
