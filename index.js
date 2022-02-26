@@ -1,13 +1,12 @@
 'use strict'
 
-let grid  = document.getElementById('grid')
-
 let wordList = [ 
     'limb',
     'fork',
     'cart',
     'funk',
-    'pink'
+    'pink',
+    "affe"
 ];
 
 let randomIndex = Math.floor(Math.random() * wordList.length)
@@ -15,9 +14,10 @@ let solution = wordList[randomIndex]
 
 let attempts = []
 let currentAttempt = ''
-buildGrid()
-updateGrid()
-window.addEventListener('keydown', handleKeyDown)
+
+let grid  = document.getElementById('grid')
+let keyboard = document.getElementById('keyboard')
+
 
 function buildGrid() {
     for (let i = 0; i < 6; i++) {
@@ -30,7 +30,6 @@ function buildGrid() {
         }
         grid.appendChild(row)
     }
-    
 }
 
 function updateGrid() {
@@ -72,19 +71,75 @@ function drawCurrentAttempt(row, attempt) {
 
 }
 
+let GREEN = '#48ADAB'
+let YELLOW = '#D7C647'
+let GREY = '#604D53'
+
 function getBgColor(attempt, i) {
     let correctLetter = solution[i];
     let attemptLetter = attempt[i];
     if (correctLetter === attemptLetter) {
-        return '#48ADAB'
+        return GREEN
     } else if (solution.includes(attemptLetter)) {
-        return '#D7C647'
+        return YELLOW
     }
-    return '#604D53' 
+    return GREY 
 }
 
 function handleKeyDown(e) {
-    let letter = e.key.toLowerCase()
+    // ignore commands
+    if (e.ctrlKey || e.metaKey || e.altKey) {
+        return
+    }
+
+    handleKeyPress(e.key);
+}
+
+function buildKeyboard() {
+    buildKeyboardRow('qwertyuiop', false)
+    buildKeyboardRow('asdfghjkl', false)
+    buildKeyboardRow('zxcvbnm', true)
+}
+
+function buildKeyboardRow(letters, isLastRow) {
+    let row = document.createElement('div')
+    row.style.alignContent = true;
+
+    if (isLastRow) {
+        let button = document.createElement('button')
+        button.className = 'keyboardButton'
+        button.textContent = 'Enter'
+        button.onclick = () => {
+            handleKeyPress('enter')
+        };
+        row.appendChild(button)
+    }
+    for (let letter of letters) {
+        let button = document.createElement('button')
+        button.className = 'keyboardButton'
+        button.textContent = letter
+        button.onclick = () => {
+            handleKeyPress(letter)
+        };
+        row.appendChild(button)
+    }
+    if (isLastRow) {
+        let button = document.createElement('button')
+        button.className = 'keyboardButton'
+        button.textContent = 'Backspace'
+        button.onclick = () => {
+            handleKeyPress('backspace')
+        };
+        row.appendChild(button)
+    }
+    
+    
+    keyboard.appendChild(row)
+    
+}
+
+function handleKeyPress(key) {
+    let letter = key.toLowerCase()
     if (letter === 'enter' ) {
         if(currentAttempt.length < 4) {
             return
@@ -95,9 +150,13 @@ function handleKeyDown(e) {
         }
         attempts.push(currentAttempt)
         currentAttempt = ''
-    } else if (letter === 'backspace') {
+    } 
+    //delete letter on backspace
+    else if (letter === 'backspace') {
         currentAttempt = currentAttempt.slice(0, currentAttempt.length - 1)
-    } else if (/[a-z]/.test(letter)) {
+    } 
+    // add letter if letter pressed and less than 4 chars in currentAttempt
+    else if (/^[a-z]$/.test(letter)) {
         if (currentAttempt.length < 4) {
             currentAttempt += letter
         }
@@ -105,4 +164,7 @@ function handleKeyDown(e) {
     updateGrid()
 }
 
-
+buildGrid()
+buildKeyboard()
+updateGrid()
+window.addEventListener('keydown', handleKeyDown)

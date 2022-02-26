@@ -1,19 +1,51 @@
+<body>
 <h1>fordle</h1>
-<hr style='border-color: white; background-color: white'/>
+<hr style='border-color: white; background-color: white; line-height: 0.045em;'/>
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
 <div id="grid"></div>
+<div id="keyboard"></div>
+
 <style>
     body, html {
-        background: linear-gradient(0deg, #EDC3BF, #D77870);
+        background: linear-gradient(0deg, #E5A59F, #CF5A4F);
         color: white;
-        font-family: sans-serif;
+        font-family: 'Raleway';
         text-align: center;
         text-transform: lowercase;
-        justify-content: flex;
         
+    }
+    body, html, #screen {
+        height: 100vh;
+        width: 100%;
+    }
+    #screen {
+        display: flex;
+        flex-direction: column;
     }
     h1 {
         font-size: 42px;
+        flex: none;
     }
+    .keyboardButton {
+        text-transform: uppercase;
+        padding: 15px;
+        border-radius: 5px;
+        border: none;
+        height: 60px;
+        margin: 1px;
+        color: 	#696969;
+        opacity: 0.75;
+        font-size: 16px; 
+        cursor: pointer;
+    }
+    #keyboard {
+        flex: none;
+        padding: 20px;
+        position: absolute;
+        bottom: 0  ;
+        width: 100%;
+     }
     .cell {
         width: 60px;
         height: 60px;
@@ -26,13 +58,12 @@
         font-size: 40px;
         font-weight: bold;
         border-color: white;
+        perspective: 1000px;
     }
-    .grid {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        /* bring your own prefixes */
-        transform: translate(-50%, -50%);
+    #grid {
+        flex: 1 1 auto;
+        
     }
 </style>
 <script src="index.js"></script>
+</body>
