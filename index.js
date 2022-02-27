@@ -10,7 +10,7 @@ let wordList = [
 ];
 
 let randomIndex = Math.floor(Math.random() * wordList.length)
-let solution = wordList[randomIndex]
+let solution = wordList[0]
 
 let attempts = []
 let currentAttempt = ''
@@ -61,9 +61,11 @@ function drawCurrentAttempt(row, attempt) {
     for (let i = 0; i < 4; i++) {
         let cell= row.children[i]
         if (attempt[i] !== undefined) {
+            cell.style.borderColor = 'white'
             cell.textContent = attempt[i]
         } else {
             cell.innerHTML = '<div style="opacity: 0">X</div>'
+            cell.style.borderColor = '#D3D3D3'
         }
         cell.style.backgroundColor = 'transparent'
 
@@ -164,6 +166,8 @@ function handleKeyPress(key) {
         attempts.push(currentAttempt)
         currentAttempt = ''
         updateKeyboard()
+        saveGame()
+        
 
     } 
     //delete letter on backspace
@@ -205,7 +209,31 @@ function updateKeyboard() {
     }
 }
 
+function loadGame() {
+    let data
+    try {
+        data = JSON.parse(localStorage.getItem('data'))
+    } catch { }
+    if (data != null) {
+        if (data.solution === solution) {
+            attempts = data.attempts
+        }
+    }
+}
+
+function saveGame() {
+    let data = JSON.stringify({
+        solution,
+        attempts
+    })
+    try {
+        localStorage.setItem('data', data)
+    } catch {}
+}
+
+loadGame()
 buildGrid()
 buildKeyboard()
 updateGrid()
+updateKeyboard()
 window.addEventListener('keydown', handleKeyDown)
