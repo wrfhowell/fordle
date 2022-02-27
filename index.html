@@ -71,6 +71,21 @@
         flex: 1 1 auto;
         vertical-align: middle;
     }
+    @keyframes press {
+        from {
+            opacity: 0.5;
+            transform: scale(0.9);
+        }
+        50% {
+            opacity: 0.85;
+            transform: scale(1.15);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
 </style>
 <script src="index.js"></script>
 </body>

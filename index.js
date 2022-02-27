@@ -66,6 +66,7 @@ function drawCurrentAttempt(row, attempt) {
         } else {
             cell.innerHTML = '<div style="opacity: 0">X</div>'
             cell.style.borderColor = '#D3D3D3'
+            clearAnimation(cell)
         }
         cell.style.backgroundColor = 'transparent'
 
@@ -178,9 +179,25 @@ function handleKeyPress(key) {
     else if (/^[a-z]$/.test(letter)) {
         if (currentAttempt.length < 4) {
             currentAttempt += letter
+            animateTyping(currentAttempt.length - 1) 
         }
     }
     updateGrid()
+}
+
+function animateTyping(index) {
+   let rowIndex = attempts.length
+   let row = grid.children[rowIndex]
+   let cell = row.children[index]
+   cell.style.animationName = 'press'
+   cell.style.animationDuration = '100ms'
+   cell.style.animationTimingFunction = 'ease-out'
+}
+
+function clearAnimation(cell) {
+    cell.style.animationName = ''
+    cell.style.animationDuration = ''
+    cell.style.animationTimingFunction = ''
 }
 
 function getBetterColor(a,b) {
