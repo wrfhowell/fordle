@@ -1,5 +1,5 @@
 <body>
-<h1>fordle</h1>
+<h1 style ='height:25px'>fordle</h1>
 <hr style='border-color: white; background-color: white; line-height: 0.045em;'/>
 <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
@@ -30,8 +30,8 @@
     }
     .keyboardButton {
         text-transform: uppercase;
-        padding-left: 3.1%;
-        padding-right: 3.1%;
+        padding-left: 3%;
+        padding-right: 3%;
         border-radius: 5px;
         border: none;
         height: 7vh;
@@ -49,13 +49,13 @@
         left: 0;
         right: 0;
         vertical-align: middle;
-        margin: auto;
-     }
+        margin: -10px;
+        overflow: scroll;
+    }
     .cell {
         width: 7.5vh;
         height: 7.5vh;
         line-height: 7.5vh;
-        border: 0.045em solid white;
         border-radius: 10px;
         display: inline-block;
         margin: 5px;
@@ -67,6 +67,40 @@
         border-color: #D3D3D3;
         perspective: 1000px;
     }
+    .cell .front, .cell .back {
+        border-radius: 10px;
+        border: 0.045em solid white;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        position: absolute;
+        top:   0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+    }
+    .cell.solved .surface{
+        transform: rotateX(180deg);
+    }
+    .cell .surface {
+        transition-duration: 800ms;
+        transform-style: preserve-3d;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    .cell .front {
+        z-index: 2;
+    }
+    .cell .back {
+        z-index: 1;
+        transform: rotateX(180deg);
+    }
+    /* .cell.solved .front {
+        opacity: 0;
+    }
+    .cell.solved .back {
+        opacity: 1;
+    } */
     #grid {
         flex: 1 1 auto;
         vertical-align: middle;
