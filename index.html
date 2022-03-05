@@ -14,12 +14,14 @@
         font-family: 'Raleway';
         text-align: center;
         text-transform: lowercase;
-        
+        -webkit-appearance: none;
     }
     body, html, #screen {
         height: 100vh;
         width: 100%;
         overflow: hidden;
+        -webkit-appearance: none;
+        touch-action: manipulation;
     }
     #screen {
         display: flex;
@@ -32,6 +34,7 @@
         border-radius: 10px;
         background-color: transparent;
         border-style: solid;
+        -webkit-appearance: none;
     }
     h1 {
         font-size: 42px;
@@ -58,7 +61,7 @@
         left: 0;
         right: 0;
         vertical-align: middle;
-        margin: -10px;
+        margin: -15px;
         overflow: scroll;
     }
     .cell {
@@ -75,6 +78,7 @@
         font-weight: bold;
         border-color: #D3D3D3;
         perspective: 1000px;
+        -webkit-appearance: none;
     }
     .cell .front, .cell .back {
         width: 7.5vh;
@@ -89,6 +93,7 @@
         bottom: 0;
         right: 0;
         left: 0;
+        -webkit-appearance: none;
     }
     .cell.solved .surface{
         transform: rotateX(180deg);
