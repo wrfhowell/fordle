@@ -1,6 +1,7 @@
 <body>
 <h1 style ='height:25px'>fordle</h1>
-<hr style='border-color: white; background-color: white; line-height: 0.045em;'/>
+<button type='button' id='share' onclick='share()''>share</button>
+<hr style='border-color: #ffffff; background-color: white; line-height: 0.045em;'/>
 <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
 <div id="grid"></div>
@@ -23,6 +24,14 @@
     #screen {
         display: flex;
         flex-direction: column;
+    }
+    #share{
+        position: relative;
+        color:white;
+        border-color: white;
+        border-radius: 10px;
+        background-color: transparent;
+        border-style: solid;
     }
     h1 {
         font-size: 42px;

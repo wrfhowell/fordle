@@ -1,7 +1,7 @@
 'use strict'
 
 let wordList = [];
-let solutionList = ['dick', 'fuel', 'open', 'cord', 'arch', 'reel', 'ping', 'jade', 'base', 'atom', 'balm', 'tack', 'root', 'meat', 'sack', 'bode', 'worn', 'pure', 'alas', 'thaw', 'task', 'stop', 'ugly', 'rind', 'glad', 'care', 'song']
+let solutionList = ['fuel', 'open', 'cord', 'arch', 'reel', 'ping', 'jade', 'base', 'atom', 'balm', 'tack', 'root', 'meat', 'sack', 'bode', 'worn', 'pure', 'alas', 'thaw', 'task', 'stop', 'ugly', 'rind', 'glad', 'care', 'song']
 
 let index = 0;
 let randomIndex = Math.floor(Math.random() * wordList.length)
@@ -51,6 +51,36 @@ function updateGrid() {
             drawAttempt(row, '', true, false)
         }
     } 
+}
+
+function copyToClipboard(text) {
+    var dummy = document.createElement("textarea");
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+}
+
+function share() {
+    let guess = 'fordle #' + (index + 1) + '\n'
+    for (let attempt of attempts) {
+        for (let i = 0; i < attempt.length; i++) {
+            let color = getBgColor(attempt, i)
+            if (color === YELLOW) {
+                guess += '🟨'
+            }
+            if (color === GREEN) {
+                guess +='🟩'
+            }
+            if (color === GREY) {
+                guess += '⬜'
+            }
+        }
+        guess += '\n'
+    }
+    copyToClipboard(guess)
+    alert("Copied Results!")
 }
 
 function drawAttempt(row, attempt, isCurrent, isSolved) {
@@ -272,6 +302,7 @@ function loadGame() {
     }
 }
 
+
 function saveGame() {
     let data = JSON.stringify({
         solution,
@@ -282,6 +313,7 @@ function saveGame() {
     } catch {}
 }
 
+
 loadWordlist()
 loadGame()
 buildGrid()
@@ -289,6 +321,7 @@ buildKeyboard()
 updateGrid()
 updateKeyboard()
 window.addEventListener('keydown', handleDownKey)
+
 
 function loadWordlist() {
     wordList = [
