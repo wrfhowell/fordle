@@ -15,8 +15,12 @@ let keyboard = document.getElementById('keyboard')
 
 let isAnimating = false
 
-setTimeout(() => { index += 1;
-solution = solutionList[index]}, 1000 * 60 *  60 * 24);
+setInterval(updateWord, 1000 * 60 *  60 * 24)
+
+function updateWord() {
+    index += 1
+    solution = solutionList[index]
+}
 
 function buildGrid() {
     for (let i = 0; i < 6; i++) {
