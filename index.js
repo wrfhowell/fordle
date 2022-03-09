@@ -15,7 +15,7 @@ let keyboard = document.getElementById('keyboard')
 
 let isAnimating = false
 
-setInterval(updateWord, 1000 * 60 *  60 * 24)
+setInterval(updateWord, 60000)
 
 function updateWord() {
     index += 1
