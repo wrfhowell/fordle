@@ -1,12 +1,12 @@
 'use strict'
 
 let wordList = [];
-let solutionList = ['jade', 'base', 'atom', 'balm', 'tack', 'root', 'meat', 'sack', 'bode', 'worn', 'pure', 'alas', 'thaw', 'task', 'stop', 'ugly', 'rind', 'glad', 'care', 'song']
+let solutionList = ['glad', 'care', 'song', 'weak', 'jade', 'base', 'atom', 'balm', 'tack', 'root', 'meat', 'sack', 'bode', 'worn', 'pure', 'alas', 'thaw', 'task', 'stop', 'ugly', 'rind']
 
-let index = 0;
+
 let randomIndex = Math.floor(Math.random() * wordList.length)
-let solution = solutionList[index]
-
+let solution = ''
+let index = 0;
 let attempts = []
 let currentAttempt = ''
 
@@ -15,11 +15,13 @@ let keyboard = document.getElementById('keyboard')
 
 let isAnimating = false
 
-setInterval(updateWord, 60000)
-
-function updateWord() {
-    index += 1
-    solution = solutionList[index]
+function updateSolution()  {
+    const epochMs = new Date('January 1, 2022 00:00:00').valueOf()
+    const now = Date.now()
+    const msInDay = 86400000
+    index = Math.floor((now - epochMs) / msInDay)
+  
+    solution = solutionList[index % solutionList.length]
 }
 
 function buildGrid() {
@@ -67,7 +69,7 @@ function copyToClipboard(text) {
 }
 
 function share() {
-    let guess = 'fordle #' + (index + 1) + '\n'
+    let guess = 'fordle #' + (index % solutionList.length) + '\n'
     for (let attempt of attempts) {
         for (let i = 0; i < attempt.length; i++) {
             let color = getBgColor(attempt, i)
@@ -317,7 +319,7 @@ function saveGame() {
     } catch {}
 }
 
-
+updateSolution()
 loadWordlist()
 loadGame()
 buildGrid()
