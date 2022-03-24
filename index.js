@@ -1,7 +1,7 @@
 'use strict'
 
 let wordList = [];
-let solutionList = ['glad', 'care', 'song', 'weak', 'jade', 'base', 'atom', 'balm', 'tack', 'root', 'meat', 'sack', 'bode', 'worn', 'pure', 'alas', 'thaw', 'task', 'stop', 'ugly', 'rind']
+let solutionList = ['glad', 'care', 'song', 'weak', 'jade', 'base', 'atom', 'balm', 'tack', 'root', 'meat', 'sack', 'bode', 'worn', 'pure', 'alas', 'thaw', 'task', 'stop', 'ugly', 'rind', 'lark','flap','fear','left']
 
 
 let randomIndex = Math.floor(Math.random() * wordList.length)
